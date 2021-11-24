@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package garwinapis.search.v1;
+
+import "garwinapis/search/v1/common.proto";
+import "garwinapis/search/v1/product.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "search/v1;search";
+
+service ProductService {
+  // Indexes a product to make it searchable.
+  rpc IndexProduct(IndexProductRequest) returns (google.protobuf.Empty) {}
+
+  // Returns all products that match the search query.
+  rpc SearchProducts(SearchProductsRequest) returns (SearchProductsResponse) {}
+
+  // Creates a product index created in the ElasticSearch.i
+  rpc CreateProductIndex(google.protobuf.Empty) returns (google.protobuf.Empty) {}
+
+  // Deletes a product index created in the ElasticSearch.
+  rpc DeleteProductIndex(google.protobuf.Empty) returns (google.protobuf.Empty) {}
+}
+
+// Request message for the ProductService.IndexProduct method.
+message IndexProductRequest {
+  // The indexed product
+  Product product = 1;
+}
+
+// Request message for the ProductService.SearchProducts method.
+message SearchProductsRequest {
+  // Search filter configuration.
+  ProductFilters filters = 1;
+
+  // Configuration for building faceted search results.
+  ProductFacets facets = 2;
+
+  // Pagination parameters.
+  PaginationConfig pagination = 3;
+
+  // Sorting parameters.
+  SortingConfig sorting = 4;
+}
+
+// Response message for the ProductService.SearchProducts method.
+message SearchProductsResponse {
+  // The list of the product identifiers.
+  repeated string product_ids = 1;
+
+  // The faceted product search results.
+  ProductFacetedSearchResults facets = 2;
+
+  // The total number of products matching to the query results.
+  int64 total = 3;
+}

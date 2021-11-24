@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package garwinapis.seo.v1;
+
+option go_package = "seo/v1;seo";
+
+// Represents the possible page types of a website.
+enum PageType {
+  // The unspecified page.
+  PAGE_TYPE_UNSPECIFIED = 0;
+
+  // The home page.
+  PAGE_TYPE_HOME = 1;
+
+  // The product category page.
+  PAGE_TYPE_CATEGORY = 2;
+
+  // The product details page.
+  PAGE_TYPE_PRODUCT = 3;
+
+  // The promo details page.
+  PAGE_TYPE_PROMO = 4;
+
+  // The search results page.
+  PAGE_TYPE_SEARCH_RESULTS = 5;
+
+  // The cart page.
+  PAGE_TYPE_CART = 6;
+
+  // The checkout page.
+  PAGE_TYPE_CHECKOUT = 7;
+
+  // The personal account related pages.
+  PAGE_TYPE_ACCOUNT = 8;
+}

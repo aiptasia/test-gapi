@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package garwinapis.search.v1;
+
+option go_package = "search/v1;search";
+
+// Represents configuration parameters for sorting search results.
+message SortingConfig {
+  // The name of the parameter that is used for sorting.
+  string param = 1;
+
+  // The sorting direction.
+  string order = 2;
+}
+
+// Represents configuration parameters for paginating search results.
+message PaginationConfig {
+  // Requested page number.
+  int32 page_number = 1;
+
+  // Requested page size.
+  int32 page_size = 2;
+}

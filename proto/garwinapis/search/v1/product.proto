@@ -1,0 +1,185 @@
+syntax = "proto3";
+
+package garwinapis.search.v1;
+
+option go_package = "search/v1;search";
+
+// Represents an indexed product.
+message Product {
+  // The unique resource identifier of the product.
+  string id = 1;
+
+  // Indicates whether the product should be available
+  // in the search results.
+  bool enabled = 2;
+
+  // The brand of the product.
+  Brand brand = 3;
+
+  // The product SKU.
+  string sku = 4;
+
+  // The unique internal identifier of the product.
+  string code = 5;
+
+  // The product title.
+  string title = 6;
+
+  // The base price of the product.
+  int64 base_price = 7;
+
+  // The relative position in the product list.
+  int64 position = 8;
+
+  // The list of the product properties.
+  repeated Property properties = 9;
+
+  // The list of the product properties.
+  repeated Permission permissions = 10;
+
+  // The list of the product categories.
+  repeated string category_ids = 11;
+}
+
+// Represents a product brand.
+message Brand {
+  // The unique resource identifier of the brand.
+  string id = 1;
+
+  // The brand title.
+  string title = 2;
+}
+
+// Represents a product category.
+message Category {
+  // The unique resource identifier of the category.
+  string id = 1;
+
+  // The category title.
+  string title = 2;
+}
+
+// Represents a product brand.
+message Price {
+  // The type of the price.
+  string type = 1;
+
+  // The brand title.
+  string title = 2;
+}
+
+// Represents a product property.
+message Property {
+  // The unique resource identifier of the property.
+  string id = 1;
+
+  // The value of the property.
+  string value = 2;
+}
+
+// Represents a product permissions.
+message Permission {
+  // The unique resource identifier of the customer.
+  string customer_id = 1;
+
+  // The value of the product permission.
+  string value = 2;
+}
+
+// Represents search filters for products.
+message ProductFilters {
+  // Represents a list of the property values.
+  message Property {
+    // The unique identifier of the product property.
+    string id = 1;
+
+    // The list of the property values.
+    repeated string values = 2;
+  }
+
+  // The unique identifier of the category.
+  string category_id = 1;
+
+  //The unique identifier of the customer.
+  string customer_id = 2;
+
+  // The list of the brand identifiers.
+  repeated string brand_ids = 3;
+
+  // The list of the product properties.
+  repeated Property properties = 4;
+
+  // The list of the product permissions.
+  repeated string permissions = 5;
+
+  // The arbitrary text string that represents the user search query.
+  string text = 6;
+}
+
+// Represents parameters that are used to build faceted product search results.
+// Product brands are not present in this configuration because all brands
+// in the search results are used to construct buckets.
+message ProductFacets {
+  // The list of the category identifiers.
+  repeated string category_ids = 1;
+
+  // The list of the property identifiers.
+  repeated string property_ids = 2;
+
+  // The list of the product permissions.
+  repeated string permissions = 3;
+
+  // Indicates whether the doc_count should be included in the facets.
+  bool with_doc_count = 4;
+}
+
+// Represents faceted product search results.
+message ProductFacetedSearchResults {
+  // The list of the brand buckets.
+  map<string, BrandBucket> brand_buckets = 1;
+
+  // The list of the category buckets.
+  map<string, CategoryBucket> category_buckets = 2;
+
+  // The list of the property buckets.
+  map<string, PropertyBucket> property_buckets = 3;
+
+  // The list of the permission buckets.
+  map<string, PermissionBucket> permission_buckets = 4;
+}
+
+// Represents brand bucket.
+message BrandBucket {
+  // The brand title.
+  string title = 1;
+
+  // The total number of documents contained in this bucket.
+  int64 count = 2;
+}
+
+// Represents category bucket.
+message CategoryBucket {
+  // The category title.
+  string title = 1;
+
+  // The total number of documents contained in this bucket.
+  int64 count = 2;
+}
+
+// Represents property bucket.
+message PropertyBucket {
+  // The property title.
+  string title = 1;
+
+  // The total number of documents associated with the property value.
+  map<string, int64> values = 2;
+}
+
+// Represents permission bucket.
+message PermissionBucket {
+  // The permission title.
+  string title = 1;
+
+  // The total number of documents contained in this bucket.
+  int64 count = 2;
+}

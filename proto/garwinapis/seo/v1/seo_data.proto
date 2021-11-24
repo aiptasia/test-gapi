@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package garwinapis.seo.v1;
+
+import "garwinapis/seo/v1/page_type.proto";
+
+option go_package = "seo/v1;seo";
+
+// Represents a data used for search engine optimisation purposes.
+message SEOData {
+  // The page type of the website.
+  PageType page_type = 1;
+
+  // The unique resource identifier of the entity displayed on the page.
+  string entity_id = 2;
+
+  // The <title> HTML element value.
+  string page_title = 3;
+
+  // The <meta> HTML element value for the 'keywords' metadata name.
+  string meta_keywords = 4;
+
+  // The <meta> HTML element value for the 'description' metadata name.
+  string meta_description = 5;
+
+  // The <h1> HTML element value if it's appropriate for the website page.
+  string h1 = 6;
+
+  // The search engine optimized description of the resource.
+  string description = 7;
+
+  // Indicates whether the page should be prevented from indexing.
+  bool noindex = 8;
+}

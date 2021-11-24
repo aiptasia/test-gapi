@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+package garwinapis.seo.v1;
+
+import "garwinapis/seo/v1/page_type.proto";
+import "garwinapis/seo/v1/seo_data.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "seo/v1;seo";
+
+service SEODataService {
+  // Creates the SEO data.
+  rpc CreateSEOData(CreateSEODataRequest) returns (SEOData) {}
+
+  // Retrieves the SEO data matching the SEO data query.
+  rpc GetSEOData(GetSEODataRequest) returns (SEOData) {}
+
+  // Lists the SEO data.
+  rpc ListSEOData(ListSEODataRequest) returns (ListSEODataResponse) {}
+
+  // Updates the SEO data.
+  rpc UpdateSEOData(UpdateSEODataRequest) returns (SEOData) {}
+
+  // Deletes the SEO data.
+  rpc DeleteSEOData(DeleteSEODataRequest) returns (google.protobuf.Empty) {}
+}
+
+// Request message for the SEODataService.CreateSEOData method.
+message CreateSEODataRequest {
+  // The SEO data to create.
+  SEOData seo_data = 1;
+}
+
+// Request message for the SEODataService.GetSEOData
+message GetSEODataRequest {
+  // The page type of the website.
+  PageType page_type = 1;
+
+  // The unique resource identifier of the entity displayed on the page.
+  string entity_id = 2;
+
+  // Indicated whether the default SEO data should be included in the response.
+  bool with_defaults = 3;
+}
+
+// Request message for the SEODataService.ListSEOData method.
+message ListSEODataRequest {
+  // The requested page number.
+  int32 page_number = 1;
+
+  // The requested page size.
+  int32 page_size = 2;
+}
+
+// Response message for the SEODataService.ListSEOData method.
+message ListSEODataResponse {
+  // The list of seo data.
+  repeated SEOData seo_data = 1;
+
+  // The number of items in the collection.
+  int64 total_size = 2;
+}
+
+// Request message for the SEODataService.UpdateSEOData method.
+message UpdateSEODataRequest {
+  // The SEO data to update.
+  SEOData seo_data = 1;
+}
+
+// Request message for the SEODataService.DeleteSEOData method.
+message DeleteSEODataRequest {
+  // The page type of the website.
+  PageType page_type = 1;
+
+  // The unique resource identifier of the entity displayed on the page.
+  string entity_id = 2;
+}
