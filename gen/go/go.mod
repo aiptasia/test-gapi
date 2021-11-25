@@ -1,4 +1,4 @@
-module gitlab.garagetools.ru/dev/garwinapis/gen/go
+module gitlab.garagetools.ru/dev/test-gapi/gen/go
 
 go 1.17
 
